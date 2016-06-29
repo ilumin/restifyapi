@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+
+  server:
+    container_name: restifyapi_server
+    build: .
+    ports:
+      - 80:8080
+    volumes:
+      - ./app:/src/app
