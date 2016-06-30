@@ -1,12 +1,18 @@
-var restify = require('restify');
+import restify from 'restify'
 
-function respond(req, res, next) {
-  res.send('Yike!');
-  next();
+class App {
+  constructor() {
+    let port = process.env.port || 3000
+
+    this.server = restify.createServer()
+    this.server.get('/test-param/:name', function (req, res, next) {
+      res.send('Hello, ' + req.params.name)
+      next()
+    })
+    this.server.listen(port, (err) => {
+      console.log('%s listening at %s', this.server.name, this.server.url);
+    });
+  }
 }
 
-var server = restify.createServer();
-server.get('/', respond);
-server.listen(8080, function() {
-  console.log('%s listening at %s', server.name, server.url);
-});
+new App()
